@@ -3,7 +3,7 @@ use std::collections::HashMap;
 fn main() {
     let total_score: HashMap<(char, char), u32> = HashMap::from(
         [
-            // (your shape, their shape), pts for your shape + pts for result
+            // (their shape, your shape), pts for your shape + pts for result
             (('A', 'X'), 1+3),
             (('A', 'Y'), 2+6),
             (('A', 'Z'), 3+0),
@@ -17,7 +17,7 @@ fn main() {
     );
     let play_to_make: HashMap<(char, char), char> = HashMap::from(
         [
-            // (your shape, their shape), pts for your shape + pts for result
+            // (their shape, result you should have), shape to play
             (('A', 'X'), 'Z'),
             (('A', 'Y'), 'X'),
             (('A', 'Z'), 'Y'),
