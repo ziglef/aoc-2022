@@ -14,11 +14,13 @@ fn main() {
         items.retain(|item| items2.contains(item));
         priorities.push(*items.iter().last().unwrap());
     }
+    
     println!(
         "{}",
         priorities.iter().map(|&p| if p.is_uppercase() { p as u32 - 'A' as u32 + 27 } else { p as u32 - 'a' as u32 + 1 }).sum::<u32>(),
     );
 
+    // Second problem
     for group_rucksacks in rucksacks.chunks(3) {
         let mut items: HashSet<char> = group_rucksacks[0].chars().collect();
         let items2: HashSet<char> = group_rucksacks[1].chars().collect();
@@ -28,7 +30,6 @@ fn main() {
         badges.push(*items.iter().last().unwrap());
     }
 
-    // Second problem
     println!(
         "{}",
         badges.iter().map(|&p| if p.is_uppercase() { p as u32 - 'A' as u32 + 27 } else { p as u32 - 'a' as u32 + 1 }).sum::<u32>(),
