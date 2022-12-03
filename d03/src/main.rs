@@ -26,22 +26,12 @@ fn main() {
     );
 
     for group_rucksacks in rucksacks.chunks(3) {
-        let items: HashSet<char> = format!("{}{}", group_rucksacks[0].0, group_rucksacks[0].1).chars().collect();
-        let mut badge_found: bool = false;
-        for c in format!("{}{}", group_rucksacks[1].0, group_rucksacks[1].1).chars() {
-            if items.contains(&c) {
-                for c2 in format!("{}{}", group_rucksacks[2].0, group_rucksacks[2].1).chars() {
-                    if c2 == c && items.contains(&c2) {
-                        badges.push(c);
-                        badge_found = true;
-                        break;
-                    }
-                }
-                if badge_found {
-                    break;
-                }
-            }
-        }
+        let mut items: HashSet<char> = format!("{}{}", group_rucksacks[0].0, group_rucksacks[0].1).chars().collect();
+        let items2: HashSet<char> = format!("{}{}", group_rucksacks[1].0, group_rucksacks[1].1).chars().collect();
+        let items3: HashSet<char> = format!("{}{}", group_rucksacks[2].0, group_rucksacks[2].1).chars().collect();
+        
+        items.retain(|item| items2.contains(item) && items3.contains(item));
+        badges.push(*items.iter().last().unwrap());
     }
 
     // Second problem
