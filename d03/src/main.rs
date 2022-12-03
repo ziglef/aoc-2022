@@ -8,13 +8,11 @@ fn main() {
     // First problem
     for rucksack in &rucksacks {
         let compartments = rucksack.split_at(rucksack.len()/2);
-        let items: HashSet<char> = compartments.0.chars().collect();
-        for c in compartments.1.chars() {
-            if items.contains(&c) {
-                priorities.push(c);
-                break;
-            }
-        }
+        let mut items: HashSet<char> = compartments.0.chars().collect();
+        let items2: HashSet<char> = compartments.1.chars().collect();
+        
+        items.retain(|item| items2.contains(item));
+        priorities.push(*items.iter().last().unwrap());
     }
     println!(
         "{}",
