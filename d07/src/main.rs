@@ -1,6 +1,8 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, time::Instant};
 
 fn main() {
+    let start = Instant::now();
+
     let mut dir_tree: HashMap<String, u32> = HashMap::new();
     let mut cwd: String = String::new();
     
@@ -40,6 +42,7 @@ fn main() {
             *dir_tree.get_mut(&cwd).unwrap() += size;
         }
     });
+    let end_input = Instant::now();
 
     // First problem
     let mut dir_sums: HashMap<String, u32> = HashMap::new();
@@ -50,17 +53,23 @@ fn main() {
             }
         }
     }
-
     println!(
-        "{}",
+        "A: {:?}",
         dir_sums.values().filter(|&v| *v <= 100000).sum::<u32>(),
     );
+    let end_prob_a = Instant::now();
 
     // Second problem
     let space_to_free = 30000000 - (70000000 - dir_sums.get("/").unwrap());
-    
     println!(
-        "{}",
+        "B: {:?}",
         dir_sums.values().filter(|&v| *v >= space_to_free).min().unwrap(),
     );
+    let end_prob_b = Instant::now();
+
+    let total = end_input.duration_since(start) + end_prob_a.duration_since(end_input) + end_prob_b.duration_since(end_prob_a);
+    println!("Time input: {:?} ns ({:.2?}%)", end_input.duration_since(start).as_nanos(), end_input.duration_since(start).as_nanos() as f64 / total.as_nanos() as f64 * 100.0);
+    println!("Time A: {:?} ns ({:.2?}%)", end_prob_a.duration_since(end_input).as_nanos(), end_prob_a.duration_since(end_input).as_nanos() as f64 / total.as_nanos() as f64 * 100.0);
+    println!("Time B: {:?} ns ({:.2?}%)", end_prob_b.duration_since(end_prob_a).as_nanos(), end_prob_b.duration_since(end_prob_a).as_nanos() as f64 / total.as_nanos() as f64 * 100.0);
+    println!("Time total: {:?}", total);
 }
