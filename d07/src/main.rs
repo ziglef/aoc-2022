@@ -45,7 +45,7 @@ fn main() {
     // First problem
     let mut dir_sums: HashMap<String, u32> = HashMap::new();
     let mut dir_keys_desc_len = dir_tree.keys().cloned().collect::<Vec<String>>();
-    dir_keys_desc_len.sort_by(|a, b| a.len().cmp(&b.len()));
+    dir_keys_desc_len.sort_by(|a, b| (a.matches("/").count() + a.len()).cmp(&(b.matches("/").count() + b.len())));
     for other_key in &dir_keys_desc_len {
         for key in dir_tree.keys() {    
             if key.starts_with(other_key) {
@@ -55,7 +55,7 @@ fn main() {
     }
 
     println!(
-        "{:?}",
+        "{}",
         dir_sums.values().filter(|&v| *v <= 100000).sum::<u32>(),
     );
 
