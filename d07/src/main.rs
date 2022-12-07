@@ -41,7 +41,6 @@ fn main() {
         }
     });
 
-
     // First problem
     let mut dir_sums: HashMap<String, u32> = HashMap::new();
     for other_key in dir_tree.keys() {
